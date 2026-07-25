@@ -23,7 +23,7 @@
     <img src={iconPath('33')} alt="" width="32" height="32">
     <span>3½ Floppy (A:)</span>
   </button>
-  <button class="folder-item">
+  <button class="folder-item" on:dblclick={() => openWindow('explorer', { title: 'File Explorer', icon: 'Explorer', iconNum: '07', width: 520, height: 400 })}>
     <img src={iconPath('12')} alt="" width="32" height="32">
     <span>Local Disk (C:)</span>
   </button>

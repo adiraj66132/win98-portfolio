@@ -15,8 +15,11 @@
   import IE from './lib/IE.svelte';
   import Minesweeper from './lib/Minesweeper.svelte';
   import Programs from './lib/Programs.svelte';
+  import FileExplorer from './lib/FileExplorer.svelte';
+  import Cmd from './lib/Cmd.svelte';
+  import Paint from './lib/Paint.svelte';
 
-  import { windows, windowOrder, toggleStartMenu, showDialog, closeWindow, openWindow, startShutdown } from './stores.js';
+  import { windows, windowOrder, toggleStartMenu, showDialog, openWindow } from './stores.js';
 
   const contentMap = {
     mycomputer: MyComputer,
@@ -27,20 +30,13 @@
     ie: IE,
     minesweeper: Minesweeper,
     programs: Programs,
+    explorer: FileExplorer,
+    cmd: Cmd,
+    paint: Paint,
   };
 
   function handleStartClick() {
     toggleStartMenu();
-  }
-
-  let lastShutdown = false;
-  $: {
-    if ($windows.shutdown && !lastShutdown) {
-      lastShutdown = true;
-      closeWindow('shutdown');
-      startShutdown();
-    }
-    if (!$windows.shutdown) lastShutdown = false;
   }
 </script>
 

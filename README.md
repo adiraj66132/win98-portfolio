@@ -1,43 +1,40 @@
-# Svelte + Vite
+# Windows 98 Portfolio
 
-This template should help get you started developing with Svelte in Vite.
+A personal portfolio website themed as Windows 98, built with Svelte.
 
-## Recommended IDE Setup
+![Screenshot](screenshot.png)
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## Features
 
-## Need an official Svelte framework?
+- **Desktop** with auto-aligned icons, right-click context menu (New, Paste, Arrange, Refresh)
+- **Start Menu** with Programs, Shut Down
+- **Window Manager** with drag, resize, minimize, maximize, close — Win98-style shadows
+- **File System** backed by localStorage with folder/file CRUD
+- **File Explorer** — browse, create, delete, copy/paste files
+- **Notepad** — text editor that reads/writes from the file system
+- **Paint** — 16 tools, 28-color palette, 5 brush sizes, zoom, canvas drawing
+- **Internet Explorer** — iframe-based browser with Wikipedia REST API fallback for blocked pages
+- **Command Prompt** — MS-DOS-like terminal: `dir`, `cd`, `copy`, `del`, `md`, `rd`, `type`, `edit`, `cls`, `mem`, `help`, `resume`
+- **Minesweeper** — classic game
+- **Shut Down** — animated shutdown dialog with restart
+- **About Me / Projects / Resume** pages
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+## Tech Stack
 
-## Technical considerations
+- [Svelte](https://svelte.dev) + [Vite](https://vitejs.dev)
+- localStorage for persistence
+- [Windows 98 Icon Pack](https://win98icons.alexmeub.com/)
 
-**Why use this over SvelteKit?**
+## Run
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+```bash
+npm install
+npm run dev
+```
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+## Build
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```bash
+npm run build
+npm run preview
 ```

@@ -11,6 +11,14 @@
     <img src={iconPath('44')} alt="" width="32" height="32">
     <span>Minesweeper</span>
   </button>
+  <button class="folder-item" on:dblclick={() => openWindow('paint', { title: 'untitled - Paint', icon: 'Paint', iconNum: '20', width: 720, height: 520 })}>
+    <img src={iconPath('20')} alt="" width="32" height="32">
+    <span>Paint</span>
+  </button>
+  <button class="folder-item" on:dblclick={() => openWindow('cmd', { title: 'Command Prompt', icon: 'Cmd', iconNum: '06', width: 620, height: 400 })}>
+    <img src={iconPath('06')} alt="" width="32" height="32">
+    <span>Command Prompt</span>
+  </button>
   <button class="folder-item" on:dblclick={() => openWindow('ie', { title: 'Internet Explorer', icon: 'IE', iconNum: '04', width: 520, height: 440 })}>
     <img src={iconPath('04')} alt="" width="32" height="32">
     <span>Internet Explorer</span>

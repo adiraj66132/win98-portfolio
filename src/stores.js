@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 let nextZ = 100;
 
@@ -42,6 +42,7 @@ const icon16 = {
   '14': 'shut_down_normal-1.png',
   '16': 'notepad_file-1.png',
   '17': 'printer_slim-1.png',
+  '20': 'paint_old-1.png',
   '44': 'minesweeper-0.png',
   '102': 'notepad_file-1.png',
 };
@@ -163,6 +164,7 @@ export function closeDialog() {
 }
 
 export function startShutdown() {
+  closeStartMenu();
   shutdownPhase.set('confirm');
 }
 
@@ -170,12 +172,81 @@ export function confirmShutdown() {
   shutdownPhase.set('shutting-down');
   setTimeout(() => {
     shutdownPhase.set('safe-to-turn-off');
-    setTimeout(() => {
-      window.close();
-    }, 4000);
-  }, 2000);
+  }, 4000);
 }
 
 export function cancelShutdown() {
   shutdownPhase.set(null);
 }
+
+export function restartDesktop() {
+  shutdownPhase.set(null);
+}
+
+// File system
+const FS_KEY = 'win98-fs';
+
+function norm(p) {
+  p = '/' + p.replace(/^\/+/, '');
+  if (p !== '/') p = p.replace(/\/+$/, '');
+  return p;
+}
+function base(p) { return p === '/' ? '/' : p.replace(/\/$/, '').split('/').pop(); }
+
+export const fileSystem = writable(
+  (() => { try { const d = localStorage.getItem(FS_KEY); return d ? JSON.parse(d) : { '/': { type: 'folder' } }; } catch { return { '/': { type: 'folder' } }; } })()
+);
+fileSystem.subscribe(fs => { try { localStorage.setItem(FS_KEY, JSON.stringify(fs)); } catch {} });
+
+export function listDir(dirPath) {
+  const fs = get(fileSystem);
+  dirPath = norm(dirPath);
+  const prefix = dirPath === '/' ? '/' : dirPath + '/';
+  const out = [];
+  for (const p in fs) {
+    if (p === dirPath) continue;
+    if (p.startsWith(prefix) && !p.slice(prefix.length).includes('/')) {
+      out.push({ name: base(p), path: p, ...fs[p] });
+    }
+  }
+  out.sort((a, b) => {
+    if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;
+    return a.name.localeCompare(b.name);
+  });
+  return out;
+}
+
+export function createFolder(path) {
+  path = norm(path);
+  fileSystem.update(fs => fs[path] ? fs : { ...fs, [path]: { type: 'folder' } });
+}
+
+export function createFile(path, content = '') {
+  path = norm(path);
+  fileSystem.update(fs => fs[path] ? fs : { ...fs, [path]: { type: 'file', content } });
+}
+
+export function deleteItem(path) {
+  path = norm(path);
+  if (path === '/') return;
+  fileSystem.update(fs => {
+    const prefix = path + '/';
+    const next = {};
+    for (const p in fs) if (p !== path && !p.startsWith(prefix)) next[p] = fs[p];
+    return next;
+  });
+}
+
+export function readFile(path) {
+  path = norm(path);
+  const item = get(fileSystem)[path];
+  return item && item.type === 'file' ? item.content : null;
+}
+
+export function writeFile(path, content) {
+  path = norm(path);
+  fileSystem.update(fs => ({ ...fs, [path]: { type: 'file', content } }));
+}
+
+export const refreshFlash = writable(0);
+export function triggerRefresh() { refreshFlash.update(n => n + 1); }
