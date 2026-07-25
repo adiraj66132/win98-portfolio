@@ -3,8 +3,8 @@
 </script>
 
 <div class="folder-view">
-  <button class="folder-item" on:dblclick={() => openWindow('projects', { title: 'Projects', icon: 'Projects', iconNum: '08', width: 540, height: 420 })}>
-    <img src="/icons/08.png" alt="" width="32" height="32">
+  <button class="folder-item" on:dblclick={() => openWindow('projects', { title: 'Projects', icon: 'Projects', iconNum: '07', width: 540, height: 420 })}>
+    <img src="/icons/07.png" alt="" width="32" height="32">
     <span>Projects</span>
   </button>
   <button class="folder-item" on:dblclick={() => openWindow('resume', { title: 'Resume', icon: 'Resume', iconNum: '16', width: 500, height: 460 })}>

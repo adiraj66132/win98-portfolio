@@ -1,4 +1,4 @@
-import { writable, derived } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 let nextZ = 100;
 
@@ -9,12 +9,14 @@ export const activeWindow = writable(null);
 export const startMenuOpen = writable(false);
 export const contextMenu = writable({ visible: false, x: 0, y: 0 });
 export const dialog = writable({ visible: false, text: '', title: 'Portfolio' });
+export const shutdownPhase = writable(null); // null | 'confirm' | 'shutting-down' | 'safe-to-turn-off'
 
 export function openWindow(id, config) {
   windows.update(w => {
     if (w[id]) {
-      focusWindow(id);
-      if (w[id].minimized) restoreWindow(id);
+      if (w[id].minimized) {
+        return { ...w, [id]: { ...w[id], minimized: false } };
+      }
       return w;
     }
     return {
@@ -30,7 +32,7 @@ export function openWindow(id, config) {
     };
   });
   windowOrder.update(o => o.includes(id) ? o : [...o, id]);
-  activeWindow.set(id);
+  focusWindow(id);
 }
 
 export function closeWindow(id) {
@@ -109,4 +111,22 @@ export function showDialog(text, title = 'Portfolio') {
 
 export function closeDialog() {
   dialog.set({ visible: false, text: '', title: 'Portfolio' });
+}
+
+export function startShutdown() {
+  shutdownPhase.set('confirm');
+}
+
+export function confirmShutdown() {
+  shutdownPhase.set('shutting-down');
+  setTimeout(() => {
+    shutdownPhase.set('safe-to-turn-off');
+    setTimeout(() => {
+      window.close();
+    }, 4000);
+  }, 2000);
+}
+
+export function cancelShutdown() {
+  shutdownPhase.set(null);
 }

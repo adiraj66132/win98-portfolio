@@ -1,15 +1,16 @@
 <script>
-  import { startMenuOpen, closeStartMenu, openWindow } from '../stores.js';
+  import { startMenuOpen, closeStartMenu, openWindow, showDialog } from '../stores.js';
 
   const items = [
-    { iconNum: '07', label: 'Programs', bold: true, action: () => openWindow('programs', { title: 'Programs', icon: 'Programs', iconNum: '07', width: 380, height: 320 }) },
-    { iconNum: '16', label: 'Notepad', action: () => openWindow('notepad', { title: 'Untitled - Notepad', icon: 'Notepad', iconNum: '16', width: 420, height: 360 }) },
+    { iconNum: '05', label: 'Programs', bold: true, action: () => openWindow('programs', { title: 'Programs', icon: 'Programs', iconNum: '05', width: 380, height: 320 }) },
+    { iconNum: '102', label: 'Notepad', action: () => openWindow('notepad', { title: 'Untitled - Notepad', icon: 'Notepad', iconNum: '102', width: 420, height: 360 }) },
     { iconNum: '44', label: 'Minesweeper', action: () => openWindow('minesweeper', { title: 'Minesweeper', icon: 'Minesweeper', iconNum: '44', width: 230, height: 330 }) },
     'sep',
     { iconNum: '02', label: 'About Me', action: () => openWindow('about', { title: 'About Me', icon: 'About Me', iconNum: '02', width: 480, height: 440 }) },
     { iconNum: '16', label: 'Resume', action: () => openWindow('resume', { title: 'Resume', icon: 'Resume', iconNum: '16', width: 500, height: 460 }) },
     { iconNum: '04', label: 'Internet Explorer', action: () => openWindow('ie', { title: 'Internet Explorer', icon: 'IE', iconNum: '04', width: 520, height: 440 }) },
     'sep',
+    { iconNum: '13', label: 'About Windows', action: () => showDialog('Microsoft Windows 98\nVersion 4.10.1998\n\n© Microsoft Corp 1981-1998\n\nThis product is a web portfolio\nbuilt with Svelte.', 'About Windows') },
     { iconNum: '14', label: 'Shut Down...', action: () => openWindow('shutdown', { title: 'Shut Down', icon: 'Shutdown', iconNum: '14', width: 0, height: 0 }) },
   ];
 
@@ -53,6 +54,11 @@
     z-index: 9500;
     display: flex;
     box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    animation: slideUp 0.12s ease-out;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
   }
   .sidebar {
     width: 24px;

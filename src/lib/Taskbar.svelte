@@ -20,12 +20,14 @@
   }
 
   let time = '';
+  let date = '';
   function updateClock() {
     const now = new Date();
     let h = now.getHours();
     const ampm = h >= 12 ? 'PM' : 'AM';
     h = h % 12 || 12;
     time = `${h}:${String(now.getMinutes()).padStart(2, '0')} ${ampm}`;
+    date = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
   }
   updateClock();
   setInterval(updateClock, 1000);
@@ -33,21 +35,31 @@
 
 <div class="taskbar">
   <button class="start-btn" on:click>
-    <img class="start-flag" src="/icons/01.png" alt="" width="16" height="16">
+    <div class="start-flag">
+      <div class="flag-stripe red"></div>
+      <div class="flag-stripe green"></div>
+      <div class="flag-stripe blue"></div>
+      <div class="flag-stripe yellow"></div>
+    </div>
     <span class="start-text">Start</span>
   </button>
   <div class="sep"></div>
   <div class="task-buttons">
     {#each taskList as t (t.id)}
       <button class="task-btn" class:active={t.active} on:click={() => handleClick(t.id)}>
-        <img class="task-icon" src="/icons/{t.iconNum || '01'}.png" alt="" width="16" height="16">
+        <img class="task-icon" src="/icons/{t.iconNum || '01'}-16.png" alt="" width="16" height="16">
         <span class="task-title">{t.title}</span>
       </button>
     {/each}
   </div>
   <div class="tray">
-    <img class="tray-icon" src="/icons/38.png" alt="" width="16" height="16">
-    <div class="clock">{time}</div>
+    <svg class="tray-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="1" y="5" width="3" height="6" fill="#000"/>
+      <polygon points="4,5 8,1 8,15 4,11" fill="#000"/>
+      <polygon points="9,3 13,1 13,15 9,13" fill="none" stroke="#000" stroke-width="1"/>
+      <rect x="10" y="5" width="1" height="6" fill="#000"/>
+    </svg>
+    <div class="clock" title={date}>{time}</div>
   </div>
 </div>
 
@@ -89,7 +101,19 @@
     border-right: 2px solid #fff;
     padding: 2px 4px 0 6px;
   }
-  .start-flag { image-rendering: pixelated; }
+  .start-flag {
+    width: 16px;
+    height: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    flex-shrink: 0;
+  }
+  .flag-stripe { border: 0.5px solid rgba(0,0,0,0.2); }
+  .red { background: #ff0000; }
+  .green { background: #00aa00; }
+  .blue { background: #0000ff; }
+  .yellow { background: #ffaa00; }
   .start-text { letter-spacing: 0.5px; }
   .sep {
     width: 2px;
@@ -120,13 +144,19 @@
     background: #c0c0c0;
     font-family: "VT323", monospace;
     font-size: 13px;
-    cursor: pointer;
+    cursor: default;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 180px;
     min-width: 0;
     flex-shrink: 1;
+  }
+  .task-btn:hover:not(.active) {
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #808080;
+    border-right: 2px solid #808080;
   }
   .task-btn.active {
     border-top: 2px solid #404040;
@@ -155,5 +185,6 @@
   .clock {
     font-size: 13px;
     font-family: "VT323", monospace;
+    white-space: nowrap;
   }
 </style>

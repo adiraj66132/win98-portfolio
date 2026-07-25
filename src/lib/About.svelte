@@ -3,7 +3,7 @@
 
   function gotoProjects() {
     closeWindow('about');
-    openWindow('projects', { title: 'Projects', icon: 'Projects', iconNum: '08', width: 540, height: 420 });
+    openWindow('projects', { title: 'Projects', icon: 'Projects', iconNum: '07', width: 540, height: 420 });
   }
 </script>
 
@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="section-header">
-    <img src="/icons/14.png" alt="" width="16" height="16">
+    <img src="/icons/14-16.png" alt="" width="16" height="16">
     <h2>Skills</h2>
   </div>
   <div class="skills">
@@ -37,7 +37,7 @@
     <span class="skill">Web Dev</span>
   </div>
   <div class="section-header">
-    <img src="/icons/08.png" alt="" width="16" height="16">
+    <img src="/icons/08-16.png" alt="" width="16" height="16">
     <h2>Featured Projects</h2>
   </div>
   <button class="project-card" on:click={gotoProjects}>

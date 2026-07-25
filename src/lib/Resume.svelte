@@ -1,6 +1,6 @@
 <div class="resume">
   <div class="section-header">
-    <img src="/icons/16.png" alt="" width="16" height="16">
+    <img src="/icons/16-16.png" alt="" width="16" height="16">
     <h2>Experience</h2>
   </div>
   <div class="resume-item">
@@ -14,7 +14,7 @@
     <p>Contributing to Linux configs, Arduino projects, and web tools.</p>
   </div>
   <div class="section-header">
-    <img src="/icons/13.png" alt="" width="16" height="16">
+    <img src="/icons/13-16.png" alt="" width="16" height="16">
     <h2>Education</h2>
   </div>
   <div class="resume-item">
@@ -22,7 +22,7 @@
     <p>Learning by building. Every project is a new skill unlocked.</p>
   </div>
   <div class="section-header">
-    <img src="/icons/08.png" alt="" width="16" height="16">
+    <img src="/icons/08-16.png" alt="" width="16" height="16">
     <h2>Projects</h2>
   </div>
   <div class="resume-item">
@@ -33,7 +33,7 @@
     <b>Mini Browser</b> — Lightweight web browser
   </div>
   <div class="section-header">
-    <img src="/icons/03.png" alt="" width="16" height="16">
+    <img src="/icons/03-16.png" alt="" width="16" height="16">
     <h2>Contact</h2>
   </div>
   <div class="resume-item">

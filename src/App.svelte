@@ -6,6 +6,7 @@
   import Window from './lib/Window.svelte';
   import ContextMenu from './lib/ContextMenu.svelte';
   import Dialog from './lib/Dialog.svelte';
+  import ShutdownScreen from './lib/ShutdownScreen.svelte';
   import MyComputer from './lib/MyComputer.svelte';
   import Projects from './lib/Projects.svelte';
   import About from './lib/About.svelte';
@@ -15,7 +16,7 @@
   import Minesweeper from './lib/Minesweeper.svelte';
   import Programs from './lib/Programs.svelte';
 
-  import { windows, windowOrder, toggleStartMenu, showDialog, closeWindow, openWindow } from './stores.js';
+  import { windows, windowOrder, toggleStartMenu, showDialog, closeWindow, openWindow, startShutdown } from './stores.js';
 
   const contentMap = {
     mycomputer: MyComputer,
@@ -32,11 +33,14 @@
     toggleStartMenu();
   }
 
+  let lastShutdown = false;
   $: {
-    if ($windows.shutdown) {
+    if ($windows.shutdown && !lastShutdown) {
+      lastShutdown = true;
       closeWindow('shutdown');
-      showDialog('It is now safe to turn off your computer.', 'Shut Down');
+      startShutdown();
     }
+    if (!$windows.shutdown) lastShutdown = false;
   }
 </script>
 
@@ -57,6 +61,7 @@
   <Taskbar on:click={handleStartClick} />
   <ContextMenu />
   <Dialog />
+  <ShutdownScreen />
 </div>
 
 <style>
@@ -87,6 +92,13 @@
     cursor: pointer;
     font-family: inherit;
     font-size: inherit;
+  }
+
+  :global(img) {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
   }
 
   :global(::-webkit-scrollbar) {
