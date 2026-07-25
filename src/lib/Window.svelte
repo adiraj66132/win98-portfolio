@@ -40,7 +40,9 @@
     if (dragState) {
       const dx = e.clientX - dragState.startX;
       const dy = e.clientY - dragState.startY;
-      updatePosition(id, dragState.origLeft + dx, dragState.origTop + dy);
+      const nx = Math.max(-data.width + 60, Math.min(window.innerWidth - 60, dragState.origLeft + dx));
+      const ny = Math.max(0, Math.min(window.innerHeight - 50, dragState.origTop + dy));
+      updatePosition(id, nx, ny);
     }
     if (resizeState) {
       const dx = e.clientX - resizeState.startX;

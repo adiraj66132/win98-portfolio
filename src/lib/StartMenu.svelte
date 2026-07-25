@@ -7,6 +7,7 @@
     { iconNum: '44', label: 'Minesweeper', action: () => openWindow('minesweeper', { title: 'Minesweeper', icon: 'Minesweeper', iconNum: '44', width: 230, height: 330 }) },
     { iconNum: '06', label: 'Command Prompt', action: () => openWindow('cmd', { title: 'Command Prompt', icon: 'Cmd', iconNum: '06', width: 620, height: 400 }) },
     { iconNum: '20', label: 'Paint', action: () => openWindow('paint', { title: 'untitled - Paint', icon: 'Paint', iconNum: '20', width: 720, height: 520 }) },
+    { iconNum: '36', label: 'Tetris', action: () => openWindow('tetris', { title: 'Tetris', icon: 'Tetris', iconNum: '36', width: 400, height: 620 }) },
     'sep',
     { iconNum: '02', label: 'About Me', action: () => openWindow('about', { title: 'About Me', icon: 'About Me', iconNum: '02', width: 480, height: 440 }) },
     { iconNum: '16', label: 'Resume', action: () => openWindow('resume', { title: 'Resume', icon: 'Resume', iconNum: '16', width: 500, height: 460 }) },

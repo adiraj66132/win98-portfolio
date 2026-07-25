@@ -15,6 +15,10 @@
     <img src={iconPath('20')} alt="" width="32" height="32">
     <span>Paint</span>
   </button>
+  <button class="folder-item" on:dblclick={() => openWindow('tetris', { title: 'Tetris', icon: 'Tetris', iconNum: '36', width: 400, height: 620 })}>
+    <img src={iconPath('36')} alt="" width="32" height="32">
+    <span>Tetris</span>
+  </button>
   <button class="folder-item" on:dblclick={() => openWindow('cmd', { title: 'Command Prompt', icon: 'Cmd', iconNum: '06', width: 620, height: 400 })}>
     <img src={iconPath('06')} alt="" width="32" height="32">
     <span>Command Prompt</span>

@@ -10,9 +10,10 @@ const icon32 = {
   '03': 'address_book_card.png',
   '04': 'msie1-0.png',
   '05': 'program_manager-0.png',
-  '06': 'chip_ramdrive-0.png',
+  '06': 'console_prompt-0.png',
   '07': 'directory_closed-0.png',
   '08': 'recycle_bin_empty-0.png',
+  '09': 'recycle_bin_full-0.png',
   '12': 'hard_disk_drive-0.png',
   '13': 'help_book_big-0.png',
   '14': 'shut_down_normal-0.png',
@@ -24,6 +25,8 @@ const icon32 = {
   '30': 'connected_world-0.png',
   '33': 'desktop-0.png',
   '35': 'check-0.png',
+  '36': 'joystick-0.png',
+  '37': 'chip_ramdrive-3.png',
   '44': 'minesweeper-0.png',
   '102': 'notepad_file-0.png',
 };
@@ -34,15 +37,18 @@ const icon16 = {
   '03': 'address_book_card_copy-1.png',
   '04': 'msie1-3.png',
   '05': 'directory_closed-1.png',
-  '06': 'chip_ramdrive-1.png',
+  '06': 'console_prompt-1.png',
   '07': 'directory_closed-1.png',
   '08': 'recycle_bin_empty-1.png',
+  '09': 'recycle_bin_full-1.png',
   '12': 'hard_disk_drive-1.png',
   '13': 'help_book_big-1.png',
   '14': 'shut_down_normal-1.png',
   '16': 'notepad_file-1.png',
   '17': 'printer_slim-1.png',
   '20': 'paint_old-1.png',
+  '36': 'joystick-1.png',
+  '37': 'chip_ramdrive-1.png',
   '44': 'minesweeper-0.png',
   '102': 'notepad_file-1.png',
 };
@@ -69,6 +75,9 @@ export function openWindow(id, config) {
       }
       return w;
     }
+    const iw = window.innerWidth, ih = window.innerHeight;
+    const cx = Math.min(iw - 120, 80 + Object.keys(w).length * 30);
+    const cy = Math.min(ih - 60, 30 + Object.keys(w).length * 25);
     return {
       ...w,
       [id]: {
@@ -76,8 +85,8 @@ export function openWindow(id, config) {
         minimized: false,
         maximized: false,
         z: ++nextZ,
-        x: 80 + Object.keys(w).length * 30,
-        y: 30 + Object.keys(w).length * 25,
+        x: Math.max(0, cx),
+        y: Math.max(0, cy),
       }
     };
   });
@@ -204,7 +213,7 @@ export function listDir(dirPath) {
   const prefix = dirPath === '/' ? '/' : dirPath + '/';
   const out = [];
   for (const p in fs) {
-    if (p === dirPath) continue;
+    if (p === dirPath || p.startsWith('_trash')) continue;
     if (p.startsWith(prefix) && !p.slice(prefix.length).includes('/')) {
       out.push({ name: base(p), path: p, ...fs[p] });
     }
@@ -231,8 +240,45 @@ export function deleteItem(path) {
   if (path === '/') return;
   fileSystem.update(fs => {
     const prefix = path + '/';
+    const item = fs[path];
+    if (!item) return fs;
+    const trashKey = '_trash/' + path.replace(/^\//, '');
+    const trash = {};
+    trash[trashKey] = { ...item, _origPath: path, _deletedAt: Date.now() };
+    for (const p in fs) {
+      if (p.startsWith(prefix)) {
+        trash['_trash/' + p.replace(/^\//, '')] = { ...fs[p], _origPath: p, _deletedAt: Date.now() };
+      }
+    }
     const next = {};
-    for (const p in fs) if (p !== path && !p.startsWith(prefix)) next[p] = fs[p];
+    for (const p in fs) if (p !== path && !p.startsWith(prefix) && !p.startsWith('_trash')) next[p] = fs[p];
+    for (const p in fs) if (p.startsWith('_trash')) next[p] = fs[p];
+    return { ...next, ...trash };
+  });
+}
+
+export function listTrash() {
+  const fs = get(fileSystem);
+  return Object.entries(fs)
+    .filter(([p]) => p.startsWith('_trash/'))
+    .map(([p, v]) => ({ name: p.split('/').pop(), origPath: v._origPath || p.replace('_trash/', ''), ...v }));
+}
+
+export function restoreItem(trashPath) {
+  fileSystem.update(fs => {
+    const item = fs[trashPath];
+    if (!item || !item._origPath) return fs;
+    const next = { ...fs };
+    delete next[trashPath];
+    next[item._origPath] = { type: item.type, content: item.content };
+    return next;
+  });
+}
+
+export function emptyTrash() {
+  fileSystem.update(fs => {
+    const next = {};
+    for (const p in fs) if (!p.startsWith('_trash/')) next[p] = fs[p];
     return next;
   });
 }

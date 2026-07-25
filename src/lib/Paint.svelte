@@ -118,7 +118,7 @@
 
   function scPos(e) {
     const r = canvas.getBoundingClientRect();
-    return { x: (e.clientX - r.left) / zoom, y: (e.clientY - r.top) / zoom };
+    return { x: (e.clientX - r.left) * cw / r.width, y: (e.clientY - r.top) * ch / r.height };
   }
 
   function setStroke(t) {

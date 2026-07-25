@@ -1,9 +1,10 @@
 <script>
-  import { listDir, createFolder, deleteItem, readFile, writeFile, createFile, openWindow } from '../stores.js';
+  import { get } from 'svelte/store';
+  import { listDir, createFolder, deleteItem, readFile, writeFile, createFile, openWindow, fileSystem } from '../stores.js';
 
   export let id;
 
-  let lines = ['Microsoft(R) Windows 98', '(C)Copyright Microsoft Corp 1981-1998.', '', 'C:\\>'];
+  let lines = ['Microsoft(R) Windows 98', '(C)Copyright Microsoft Corp 1981-1998.', ''];
   let input = '';
   let cwd = '/';
   let scrollEl;
@@ -173,14 +174,10 @@
       return;
     }
     const target = resolvePath(args[0]);
-    const items = listDir(target);
-    if (args[0] === '..') {
-      cwd = target;
-    } else if (!items.length && args[0] !== '.') {
-      addLine('The system cannot find the path specified.');
-    } else {
-      cwd = target;
-    }
+    if (args[0] === '..' || args[0] === '/') { cwd = target; return; }
+    const fs = get(fileSystem);
+    if (target === '/' || (fs[target] && fs[target].type === 'folder')) { cwd = target; }
+    else addLine('The system cannot find the path specified.');
   }
 
   function mdCmd(args) {
@@ -214,9 +211,11 @@
     if (args.length < 2) { addLine('The syntax of the command is incorrect.'); return; }
     const src = resolvePath(args[0]);
     const dst = resolvePath(args[1]);
+    const fs = get(fileSystem);
+    let dstName = dst;
+    if (fs[dst] && fs[dst].type === 'folder') dstName = dst + '/' + args[0].split('/').pop();
     const content = readFile(src);
     if (content === null) { addLine('File not found: ' + args[0]); return; }
-    const dstName = dst.endsWith('/') || dst.endsWith('\\') ? dst + args[0].split('/').pop() : dst;
     writeFile(dstName, content);
     addLine('        1 file(s) copied.');
   }
@@ -225,9 +224,11 @@
     if (args.length < 2) { addLine('The syntax of the command is incorrect.'); return; }
     const src = resolvePath(args[0]);
     const dst = resolvePath(args[1]);
+    const fs = get(fileSystem);
+    let dstName = dst;
+    if (fs[dst] && fs[dst].type === 'folder') dstName = dst + '/' + args[0].split('/').pop();
     const content = readFile(src);
     if (content === null) { addLine('File not found: ' + args[0]); return; }
-    const dstName = dst.endsWith('/') || dst.endsWith('\\') ? dst + args[0].split('/').pop() : dst;
     writeFile(dstName, content);
     deleteItem(src);
     addLine('        1 file(s) moved.');

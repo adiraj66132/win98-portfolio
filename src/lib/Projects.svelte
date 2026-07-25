@@ -9,7 +9,7 @@
     { iconNum: '29', name: 'Forum', title: 'Forum', desc: 'Community discussion platform with categories and threads.', tech: 'Full-Stack, Database' },
     { iconNum: '04', name: 'Mini Browser', title: 'Mini Browser', desc: 'Lightweight web browser with tabs and bookmark support.', tech: 'Electron, Web APIs' },
     { iconNum: '14', name: 'Hyprland Config', title: 'Hyprland Config', desc: 'Custom Hyprland window manager config with keybinds.', tech: 'Linux, Wayland' },
-    { iconNum: '06', name: 'Arduino Projects', title: 'Arduino Projects', desc: 'Hardware projects with sensors, LEDs, and automation.', tech: 'Arduino, C++' },
+    { iconNum: '37', name: 'Arduino Projects', title: 'Arduino Projects', desc: 'Hardware projects with sensors, LEDs, and automation.', tech: 'Arduino, C++' },
   ];
 
   function openProject(p) {
