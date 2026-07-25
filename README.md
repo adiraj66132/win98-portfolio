@@ -2,7 +2,8 @@
 
 A personal portfolio website themed as Windows 98, built with Svelte.
 
-![Screenshot](screenshot.png)
+<img width="1346" height="718" alt="image" src="https://github.com/user-attachments/assets/83b17f9c-0f0c-4389-86bd-9f97f7879588" />
+
 
 ## Features
 
