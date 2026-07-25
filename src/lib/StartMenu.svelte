@@ -1,5 +1,5 @@
 <script>
-  import { startMenuOpen, closeStartMenu, openWindow, showDialog } from '../stores.js';
+  import { startMenuOpen, closeStartMenu, openWindow, showDialog, iconPath } from '../stores.js';
 
   const items = [
     { iconNum: '05', label: 'Programs', bold: true, action: () => openWindow('programs', { title: 'Programs', icon: 'Programs', iconNum: '05', width: 380, height: 320 }) },
@@ -31,7 +31,7 @@
           <div class="sep"></div>
         {:else}
           <button class="menu-item" on:click={() => handleAction(item)}>
-            <img class="item-icon" src="/icons/{item.iconNum}.png" alt="" width="32" height="32">
+            <img class="item-icon" src={iconPath(item.iconNum)} alt="" width="32" height="32">
             <span class="item-label">{#if item.bold}<b>{item.label}</b>{:else}{item.label}{/if}</span>
           </button>
         {/if}
@@ -53,7 +53,7 @@
     border-right: 2px solid #404040;
     z-index: 9500;
     display: flex;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
     animation: slideUp 0.12s ease-out;
   }
   @keyframes slideUp {

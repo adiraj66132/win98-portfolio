@@ -48,7 +48,7 @@
     min-width: 180px;
     z-index: 9998;
     padding: 2px;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
   }
   .ctx-item {
     display: flex;

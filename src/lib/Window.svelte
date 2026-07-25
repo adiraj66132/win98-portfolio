@@ -1,5 +1,5 @@
 <script>
-  import { focusWindow, closeWindow, minimizeWindow, maximizeWindow, updatePosition, updateSize, activeWindow, showDialog } from '../stores.js';
+  import { focusWindow, closeWindow, minimizeWindow, maximizeWindow, updatePosition, updateSize, activeWindow, showDialog, iconPath } from '../stores.js';
 
   export let id;
   export let data;
@@ -84,7 +84,7 @@
 >
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class="titlebar" on:mousedown={onTitleMouseDown} on:dblclick={onTitleDblClick}>
-    <img class="titlebar-icon" src="/icons/{data.iconNum || '01'}-16.png" alt="" width="16" height="16">
+    <img class="titlebar-icon" src={iconPath(data.iconNum || '01', 16)} alt="" width="16" height="16">
     <span class="titlebar-text">{data.title}</span>
     <div class="titlebar-btns">
       <button class="tbtn" on:click|stopPropagation={() => minimizeWindow(id)}>
@@ -165,6 +165,17 @@
     font-size: 13px;
     transition: opacity 0.15s, transform 0.15s;
   }
+  .win::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+    z-index: -1;
+    pointer-events: none;
+  }
   .win.maximized {
     top: 0 !important;
     left: 0 !important;
@@ -173,6 +184,7 @@
     border: none;
     transition: none;
   }
+  .win.maximized::after, .win.minimized::after { display: none; }
   .win.minimized {
     opacity: 0;
     transform: scale(0.3) translateY(80vh);

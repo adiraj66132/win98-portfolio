@@ -1,5 +1,5 @@
 <script>
-  import { dialog, closeDialog } from '../stores.js';
+  import { dialog, closeDialog, iconPath } from '../stores.js';
 </script>
 
 {#if $dialog.visible}
@@ -11,7 +11,7 @@
         <button class="close-btn" on:click={closeDialog}>✕</button>
       </div>
       <div class="dialog-body">
-        <img class="dialog-icon" src="/icons/13-16.png" alt="" width="32" height="32">
+        <img class="dialog-icon" src={iconPath('13', 16)} alt="" width="32" height="32">
         <div class="dialog-text">{$dialog.text}</div>
       </div>
       <div class="dialog-buttons">
@@ -39,7 +39,7 @@
     border-right: 2px solid #404040;
     min-width: 340px;
     max-width: 440px;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
   }
   .dialog-titlebar {
     display: flex;

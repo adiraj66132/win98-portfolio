@@ -1,43 +1,65 @@
+<script>
+  import { iconPath } from '../stores.js';
+  let url = 'https://wiby.me';
+  let iframe;
+  function go() {
+    let target = url.trim();
+    if (target && !target.startsWith('http://') && !target.startsWith('https://')) {
+      target = 'https://' + target;
+    }
+    if (target && iframe) iframe.src = target;
+  }
+  function keydown(e) { if (e.key === 'Enter') go(); }
+</script>
+
 <div class="ie">
-  <div class="ie-header">
-    <img src="/icons/04.png" alt="" width="32" height="32">
-    <h2>Internet Explorer</h2>
+  <div class="toolbar">
+    <button class="nav-btn" on:click={() => iframe && iframe.contentWindow.history.back()}>◀</button>
+    <button class="nav-btn" on:click={() => iframe && iframe.contentWindow.history.forward()}>▶</button>
+    <button class="nav-btn" on:click={go}>↻</button>
   </div>
-  <p class="subtitle">This page cannot be displayed.</p>
   <div class="url-bar">
     <span>Address:</span>
-    <input type="text" value="http://www.microsoft.com" readonly>
-    <button class="win-btn">Go</button>
+    <input type="text" bind:value={url} on:keydown={keydown}>
+    <button class="win-btn" on:click={go}>Go</button>
   </div>
-  <div class="ie-page">
-    <p>⚠️ <b>The page you are looking for is currently unavailable.</b></p>
-    <p class="dim">The Web site might be experiencing technical difficulties, or you may need to adjust your browser settings.</p>
-    <hr>
-    <p class="dim small">Please try the following:</p>
-    <ul class="dim small">
-      <li>Click the Refresh button</li>
-      <li>Check your connection settings</li>
-      <li>Visit the portfolio instead! 😉</li>
-    </ul>
-  </div>
+  <iframe bind:this={iframe} src={url} class="ie-frame" title="browser"></iframe>
 </div>
 
 <style>
   .ie {
-    padding: 12px;
-    text-align: center;
+    padding: 4px;
     font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
-  .ie-header {
+  .toolbar {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+  .nav-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #404040;
+    border-right: 2px solid #404040;
+    background: #c0c0c0;
+    font-size: 12px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 8px;
   }
-  .ie-header img { image-rendering: pixelated; }
-  h2 { color: #000080; font-size: 16px; }
-  .subtitle { color: #808080; margin-bottom: 12px; }
+  .nav-btn:active {
+    border-top: 2px solid #404040;
+    border-left: 2px solid #404040;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+  }
   .url-bar {
     border: 2px solid;
     border-top-color: #808080;
@@ -45,7 +67,7 @@
     border-bottom-color: #fff;
     border-right-color: #fff;
     padding: 3px 6px;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -83,18 +105,14 @@
     border-bottom: 2px solid #fff;
     border-right: 2px solid #fff;
   }
-  .ie-page {
+  .ie-frame {
+    flex: 1;
+    width: 100%;
     border: 2px solid;
     border-top-color: #808080;
     border-left-color: #808080;
     border-bottom-color: #fff;
     border-right-color: #fff;
-    padding: 16px;
     background: #fff;
-    text-align: left;
   }
-  .dim { color: #808080; }
-  .small { font-size: 12px; }
-  hr { margin: 10px 0; border: none; border-top: 1px solid #808080; border-bottom: 1px solid #fff; }
-  ul { margin-left: 16px; margin-top: 4px; }
 </style>

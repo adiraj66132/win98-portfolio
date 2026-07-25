@@ -1,5 +1,5 @@
 <script>
-  import { openWindow, showDialog, closeStartMenu, hideContextMenu, showContextMenu } from '../stores.js';
+  import { openWindow, showDialog, closeStartMenu, hideContextMenu, showContextMenu, iconPath } from '../stores.js';
 
   const icons = [
     { id: 'mycomputer', iconNum: '01', label: 'My Computer', tip: 'View files and folders on your computer', x: 16, y: 16, action: () => openWindow('mycomputer', { title: 'My Computer', icon: 'My Computer', iconNum: '01', width: 520, height: 400 }) },
@@ -13,6 +13,13 @@
 
   let selected = null;
   let hoveredTip = '';
+  let loadedCount = 0;
+  let loaded = false;
+
+  function handleIconLoad() {
+    loadedCount++;
+    if (loadedCount >= icons.length) loaded = true;
+  }
 
   function handleClick(icon, e) {
     e.stopPropagation();
@@ -50,7 +57,7 @@
       on:mouseenter={() => hoveredTip = icon.id}
       on:mouseleave={() => hoveredTip = ''}
     >
-      <img class="icon-img" src="/icons/{icon.iconNum}.png" alt="" width="32" height="32">
+      <img class="icon-img" class:loaded src={iconPath(icon.iconNum)} alt="" width="32" height="32" on:load={handleIconLoad}>
       <span class="icon-label">{@html icon.label.replace('\n', '<br>')}</span>
       {#if hoveredTip === icon.id}
         <div class="tooltip">{icon.tip}</div>
@@ -97,6 +104,11 @@
   .icon-img {
     width: 32px;
     height: 32px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+  }
+  .icon-img.loaded {
+    opacity: 1;
   }
   .icon-label {
     text-align: center;
@@ -113,8 +125,10 @@
     background: #ffffcc;
     color: #000;
     padding: 2px 6px;
-    font-size: 12px;
-    white-space: nowrap;
+    font-size: 14px;
+    max-width: 160px;
+    word-wrap: break-word;
+    white-space: normal;
     border: 1px solid #000;
     pointer-events: none;
     z-index: 10;

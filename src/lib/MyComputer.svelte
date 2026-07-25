@@ -1,30 +1,30 @@
 <script>
-  import { openWindow } from '../stores.js';
+  import { openWindow, iconPath } from '../stores.js';
 </script>
 
 <div class="folder-view">
   <button class="folder-item" on:dblclick={() => openWindow('projects', { title: 'Projects', icon: 'Projects', iconNum: '07', width: 540, height: 420 })}>
-    <img src="/icons/07.png" alt="" width="32" height="32">
+    <img src={iconPath('07')} alt="" width="32" height="32">
     <span>Projects</span>
   </button>
   <button class="folder-item" on:dblclick={() => openWindow('resume', { title: 'Resume', icon: 'Resume', iconNum: '16', width: 500, height: 460 })}>
-    <img src="/icons/16.png" alt="" width="32" height="32">
+    <img src={iconPath('16')} alt="" width="32" height="32">
     <span>Resume.doc</span>
   </button>
   <button class="folder-item">
-    <img src="/icons/17.png" alt="" width="32" height="32">
+    <img src={iconPath('17')} alt="" width="32" height="32">
     <span>Printers</span>
   </button>
   <button class="folder-item">
-    <img src="/icons/33.png" alt="" width="32" height="32">
+    <img src={iconPath('33')} alt="" width="32" height="32">
     <span>CD Drive (D:)</span>
   </button>
   <button class="folder-item">
-    <img src="/icons/33.png" alt="" width="32" height="32">
+    <img src={iconPath('33')} alt="" width="32" height="32">
     <span>3½ Floppy (A:)</span>
   </button>
   <button class="folder-item">
-    <img src="/icons/12.png" alt="" width="32" height="32">
+    <img src={iconPath('12')} alt="" width="32" height="32">
     <span>Local Disk (C:)</span>
   </button>
 </div>

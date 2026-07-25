@@ -1,5 +1,5 @@
 <script>
-  import { windows, windowOrder, minimizeWindow, restoreWindow, focusWindow } from '../stores.js';
+  import { windows, windowOrder, minimizeWindow, restoreWindow, focusWindow, iconPath } from '../stores.js';
 
   $: taskList = $windowOrder
     .filter(id => $windows[id])
@@ -35,19 +35,14 @@
 
 <div class="taskbar">
   <button class="start-btn" on:click>
-    <div class="start-flag">
-      <div class="flag-stripe red"></div>
-      <div class="flag-stripe green"></div>
-      <div class="flag-stripe blue"></div>
-      <div class="flag-stripe yellow"></div>
-    </div>
+    <img class="start-icon" src="/Windows%2098%20icons/windows-0.png" alt="" width="16" height="16">
     <span class="start-text">Start</span>
   </button>
   <div class="sep"></div>
   <div class="task-buttons">
     {#each taskList as t (t.id)}
       <button class="task-btn" class:active={t.active} on:click={() => handleClick(t.id)}>
-        <img class="task-icon" src="/icons/{t.iconNum || '01'}-16.png" alt="" width="16" height="16">
+        <img class="task-icon" src={iconPath(t.iconNum || '01', 16)} alt="" width="16" height="16">
         <span class="task-title">{t.title}</span>
       </button>
     {/each}
@@ -101,20 +96,8 @@
     border-right: 2px solid #fff;
     padding: 2px 4px 0 6px;
   }
-  .start-flag {
-    width: 16px;
-    height: 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    flex-shrink: 0;
-  }
-  .flag-stripe { border: 0.5px solid rgba(0,0,0,0.2); }
-  .red { background: #ff0000; }
-  .green { background: #00aa00; }
-  .blue { background: #0000ff; }
-  .yellow { background: #ffaa00; }
   .start-text { letter-spacing: 0.5px; }
+  .start-icon { image-rendering: pixelated; flex-shrink: 0; }
   .sep {
     width: 2px;
     height: 22px;

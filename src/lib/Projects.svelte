@@ -1,5 +1,5 @@
 <script>
-  import { showDialog } from '../stores.js';
+  import { showDialog, iconPath } from '../stores.js';
 
   const projects = [
     { iconNum: '30', name: 'Weather App', title: 'Weather App', desc: 'A clean weather interface with current conditions and forecasts.', tech: 'JavaScript, API' },
@@ -20,7 +20,7 @@
 <div class="folder-view">
   {#each projects as p}
     <button class="folder-item" on:dblclick={() => openProject(p)}>
-      <img src="/icons/{p.iconNum}.png" alt="" width="32" height="32">
+      <img src={iconPath(p.iconNum)} alt="" width="32" height="32">
       <span>{p.name}</span>
     </button>
   {/each}

@@ -2,6 +2,55 @@ import { writable } from 'svelte/store';
 
 let nextZ = 100;
 
+const iconDir = '/Windows%2098%20icons/';
+
+const icon32 = {
+  '01': 'computer_win.png',
+  '02': 'user_card.png',
+  '03': 'address_book_card.png',
+  '04': 'msie1-0.png',
+  '05': 'program_manager-0.png',
+  '06': 'chip_ramdrive-0.png',
+  '07': 'directory_closed-0.png',
+  '08': 'recycle_bin_empty-0.png',
+  '12': 'hard_disk_drive-0.png',
+  '13': 'help_book_big-0.png',
+  '14': 'shut_down_normal-0.png',
+  '16': 'notepad_file-0.png',
+  '17': 'printer_slim-0.png',
+  '20': 'paint_old-0.png',
+  '28': 'outlook_express-0.png',
+  '29': 'newspaper.png',
+  '30': 'connected_world-0.png',
+  '33': 'desktop-0.png',
+  '35': 'check-0.png',
+  '44': 'minesweeper-0.png',
+  '102': 'notepad_file-0.png',
+};
+
+const icon16 = {
+  '01': 'computer-0.png',
+  '02': 'address_book_card_copy-1.png',
+  '03': 'address_book_card_copy-1.png',
+  '04': 'msie1-3.png',
+  '05': 'directory_closed-1.png',
+  '06': 'chip_ramdrive-1.png',
+  '07': 'directory_closed-1.png',
+  '08': 'recycle_bin_empty-1.png',
+  '12': 'hard_disk_drive-1.png',
+  '13': 'help_book_big-1.png',
+  '14': 'shut_down_normal-1.png',
+  '16': 'notepad_file-1.png',
+  '17': 'printer_slim-1.png',
+  '44': 'minesweeper-0.png',
+  '102': 'notepad_file-1.png',
+};
+
+export function iconPath(num, size = 32) {
+  const map = size === 16 ? icon16 : icon32;
+  return iconDir + (map[num] || 'computer_win.png');
+}
+
 export const windows = writable({});
 export const windowOrder = writable([]);
 export const activeWindow = writable(null);

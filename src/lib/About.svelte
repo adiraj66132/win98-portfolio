@@ -1,5 +1,5 @@
 <script>
-  import { openWindow, closeWindow } from '../stores.js';
+  import { openWindow, closeWindow, iconPath } from '../stores.js';
 
   function gotoProjects() {
     closeWindow('about');
@@ -9,21 +9,21 @@
 
 <div class="about">
   <div class="section-header">
-    <img src="/icons/02.png" alt="" width="32" height="32">
+    <img src={iconPath('02')} alt="" width="32" height="32">
     <h2>About Me</h2>
   </div>
   <div class="about-body">
     <div class="about-photo">
-      <img src="/icons/02.png" alt="" width="64" height="64">
+      <img src={iconPath('02')} alt="" width="64" height="64">
     </div>
     <div class="about-text">
-      <p><b>Hey there! I'm a developer who builds cool stuff.</b></p>
+      <p><b>Hey there! I'm Adiraj, a developer who builds cool stuff.</b></p>
       <p>I love creating web apps, tinkering with hardware, and customizing my Linux desktop.</p>
       <p>This portfolio is a love letter to Windows 98 — drag the windows around, open folders, play Minesweeper!</p>
     </div>
   </div>
   <div class="section-header">
-    <img src="/icons/14-16.png" alt="" width="16" height="16">
+    <img src={iconPath('14', 16)} alt="" width="16" height="16">
     <h2>Skills</h2>
   </div>
   <div class="skills">
@@ -37,25 +37,25 @@
     <span class="skill">Web Dev</span>
   </div>
   <div class="section-header">
-    <img src="/icons/08-16.png" alt="" width="16" height="16">
+    <img src={iconPath('08', 16)} alt="" width="16" height="16">
     <h2>Featured Projects</h2>
   </div>
   <button class="project-card" on:click={gotoProjects}>
-    <img src="/icons/20.png" alt="" width="24" height="24">
+    <img src={iconPath('20')} alt="" width="24" height="24">
     <div>
       <b>Pixel Forge</b>
       <p>A pixel art editor with layers and animation support.</p>
     </div>
   </button>
   <button class="project-card" on:click={gotoProjects}>
-    <img src="/icons/28.png" alt="" width="24" height="24">
+    <img src={iconPath('28')} alt="" width="24" height="24">
     <div>
       <b>Chat App</b>
       <p>Real-time chat application with rooms and user presence.</p>
     </div>
   </button>
   <button class="project-card" on:click={gotoProjects}>
-    <img src="/icons/29.png" alt="" width="24" height="24">
+    <img src={iconPath('29')} alt="" width="24" height="24">
     <div>
       <b>Forum</b>
       <p>A community forum with categories and threading.</p>
