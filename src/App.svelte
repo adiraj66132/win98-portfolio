@@ -18,6 +18,8 @@
   import FileExplorer from './lib/FileExplorer.svelte';
   import Cmd from './lib/Cmd.svelte';
   import Paint from './lib/Paint.svelte';
+  import RecycleBin from './lib/RecycleBin.svelte';
+  import Tetris from './lib/Tetris.svelte';
 
   import { windows, windowOrder, toggleStartMenu, showDialog, openWindow } from './stores.js';
 
@@ -33,6 +35,8 @@
     explorer: FileExplorer,
     cmd: Cmd,
     paint: Paint,
+    recycle: RecycleBin,
+    tetris: Tetris,
   };
 
   function handleStartClick() {
@@ -123,8 +127,10 @@
   }
 
   .app {
-    width: 100vw;
-    height: 100vh;
+    width: calc(100vw / 1.1);
+    height: calc(100vh / 1.1);
+    transform: scale(1.1);
+    transform-origin: top left;
     display: flex;
     flex-direction: column;
   }

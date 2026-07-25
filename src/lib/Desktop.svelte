@@ -20,7 +20,8 @@
     { id: 'cmd', iconNum: '06', label: 'Command\nPrompt', tip: 'MS-DOS command line', action: () => openWindow('cmd', { title: 'Command Prompt', icon: 'Cmd', iconNum: '06', width: 620, height: 400 }) },
     { id: 'paint', iconNum: '20', label: 'Paint', tip: 'Drawing application', action: () => openWindow('paint', { title: 'untitled - Paint', icon: 'Paint', iconNum: '20', width: 680, height: 480 }) },
     { id: 'explorer', iconNum: '07', label: 'File\nExplorer', tip: 'Browse files and folders', action: () => openWindow('explorer', { title: 'File Explorer', icon: 'Explorer', iconNum: '07', width: 520, height: 400 }) },
-    { id: 'recycle', iconNum: '08', label: 'Recycle Bin', tip: 'Contains deleted files', action: () => showDialog('Recycle Bin is empty.') },
+    { id: 'tetris', iconNum: '36', label: 'Tetris', tip: 'Classic block-stacking puzzle', action: () => openWindow('tetris', { title: 'Tetris', icon: 'Tetris', iconNum: '36', width: 400, height: 620 }) },
+    { id: 'recycle', iconNum: '08', label: 'Recycle Bin', tip: 'Contains deleted files and folders', action: () => openWindow('recycle', { title: 'Recycle Bin', icon: 'Recycle Bin', iconNum: '08', width: 520, height: 400 }) },
   ];
 
   let winH = 600;
